@@ -1,0 +1,633 @@
+<!doctype html>
+	<!--[if !IE]>
+	<html class="no-js non-ie" lang="en-US"> <![endif]-->
+	<!--[if IE 7 ]>
+	<html class="no-js ie7" lang="en-US"> <![endif]-->
+	<!--[if IE 8 ]>
+	<html class="no-js ie8" lang="en-US"> <![endif]-->
+	<!--[if IE 9 ]>
+	<html class="no-js ie9" lang="en-US"> <![endif]-->
+	<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://wolfpaulus.com/xmlrpc.php">
+
+<title>Installing Tomcat on macOS 11 Big Sur &#8211; Wolf Paulus</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Wolf Paulus &raquo; Feed" href="https://wolfpaulus.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Wolf Paulus &raquo; Comments Feed" href="https://wolfpaulus.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Wolf Paulus &raquo; Installing Tomcat on macOS 11 Big Sur Comments Feed" href="https://wolfpaulus.com/tomcat/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/wolfpaulus.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.2"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='pt-cv-public-style-css'  href='https://wolfpaulus.com/wp-content/plugins/content-views-query-and-display-post-page/public/assets/css/cv.css?ver=2.4.0.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://wolfpaulus.com/wp-includes/css/dist/block-library/style.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='scriptlesssocialsharing-css'  href='https://wolfpaulus.com/wp-content/plugins/scriptless-social-sharing/includes/css/scriptlesssocialsharing-style.css?ver=3.2.1' type='text/css' media='all' />
+<style id='scriptlesssocialsharing-inline-css' type='text/css'>
+.scriptlesssocialsharing-buttons { width: 100% }.scriptlesssocialsharing-buttons a.button { padding: 3px; width: 50%;; }@media only screen and (max-width: 767px) { .scriptlesssocialsharing .sss-name { position: absolute; clip: rect(1px, 1px, 1px, 1px); height: 1px; width: 1px; border: 0; overflow: hidden; } }
+</style>
+<link rel='stylesheet' id='font-awesome-css'  href='https://use.fontawesome.com/releases/v5.15.4/css/all.css?ver=5.15.4' type='text/css' media='all' />
+<link rel='stylesheet' id='scriptlesssocialsharing-fa-icons-css'  href='https://wolfpaulus.com/wp-content/plugins/scriptless-social-sharing/includes/css/scriptlesssocialsharing-fontawesome.css?ver=3.2.1' type='text/css' media='screen' />
+<link rel='stylesheet' id='activello-bootstrap-css'  href='https://wolfpaulus.com/wp-content/themes/activello/assets/css/bootstrap.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-icons-css'  href='https://wolfpaulus.com/wp-content/themes/activello/assets/css/font-awesome.min.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-fonts-css'  href='//fonts.googleapis.com/css?family=Lora%3A400%2C400italic%2C700%2C700italic%7CMontserrat%3A400%2C700%7CMaven+Pro%3A400%2C700&#038;ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-style-css'  href='https://wolfpaulus.com/wp-content/themes/activello/style.css?ver=5.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='enlighterjs-css'  href='https://wolfpaulus.com/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=YUAN4RVSQ1TC2SO' type='text/css' media='all' />
+<link rel='stylesheet' id='sccss_style-css'  href='https://wolfpaulus.com/?sccss=1&#038;ver=5.8.2' type='text/css' media='all' />
+<script type='text/javascript' src='https://wolfpaulus.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/themes/activello/assets/js/vendor/modernizr.min.js?ver=5.8.2' id='activello-modernizr-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/themes/activello/assets/js/vendor/bootstrap.min.js?ver=5.8.2' id='activello-bootstrapjs-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/themes/activello/assets/js/functions.min.js?ver=5.8.2' id='activello-functions-js'></script>
+<link rel="https://api.w.org/" href="https://wolfpaulus.com/wp-json/" /><link rel="alternate" type="application/json" href="https://wolfpaulus.com/wp-json/wp/v2/posts/9175" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://wolfpaulus.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://wolfpaulus.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.2" />
+<link rel="canonical" href="https://wolfpaulus.com/tomcat/" />
+<link rel='shortlink' href='https://wolfpaulus.com/?p=9175' />
+<link rel="alternate" type="application/json+oembed" href="https://wolfpaulus.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwolfpaulus.com%2Ftomcat%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://wolfpaulus.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwolfpaulus.com%2Ftomcat%2F&#038;format=xml" />
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-CSLNH9JENT"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+				gtag( 'config', 'G-CSLNH9JENT' );
+			</script>
+
+			<style type="text/css">a:hover, a:focus, article.post .post-categories a:hover, article.post .post-categories a:focus, .entry-title a:hover, .entry-title a:focus, .entry-meta a:hover, .entry-meta a:focus, .entry-footer a:hover, .entry-footer a:focus, .read-more a:hover, .read-more a:focus, .social-icons a:hover, .social-icons a:focus, .flex-caption .post-categories a:hover, .flex-caption .post-categories a:focus, .flex-caption .read-more a:hover, .flex-caption .read-more a:focus, .flex-caption h2:hover, .flex-caption h2:focus-within, .comment-meta.commentmetadata a:hover, .comment-meta.commentmetadata a:focus, .post-inner-content .cat-item a:hover, .post-inner-content .cat-item a:focus, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, blockquote:before, .navbar-default .navbar-nav > .open > a:focus, .cat-title a, .single .entry-content a, .site-info a:hover, .site-info a:focus {color:#dd3333}article.post .post-categories:after, .post-inner-content .cat-item:after, #secondary .widget-title:after, .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {background:#dd3333}.label-default[href]:hover, .label-default[href]:focus, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, #image-navigation .nav-previous a:hover, #image-navigation .nav-previous a:focus, #image-navigation .nav-next a:hover, #image-navigation .nav-next a:focus, .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce #respond input#submit.alt:hover, .woocommerce #respond input#submit.alt:focus, .woocommerce a.button.alt:hover, .woocommerce a.button.alt:focus, .woocommerce button.button.alt:hover, .woocommerce button.button.alt:focus, .woocommerce input.button.alt:hover, .woocommerce input.button.alt:focus, .input-group-btn:last-child>.btn:hover, .input-group-btn:last-child>.btn:focus, .scroll-to-top:hover, .scroll-to-top:focus, button, html input[type=button]:hover, html input[type=button]:focus, input[type=reset]:hover, input[type=reset]:focus, .comment-list li .comment-body:after, .page-links a:hover span, .page-links a:focus span, .page-links span, input[type=submit]:hover, input[type=submit]:focus, .comment-form #submit:hover, .comment-form #submit:focus, .tagcloud a:hover, .tagcloud a:focus, .single .entry-content a:hover, .single .entry-content a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .dropdown-menu> li> a:hover, .dropdown-menu> li> a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {background-color:#dd3333; }input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, textarea:focus { outline-color: #dd3333; }#social a:hover, #social a:focus, .header-search-icon:hover, .header-search-icon:focus  { color:#dd3333}</style>	<style type="text/css">
+		#social li{
+			display: inline-block;
+		}
+		#social li,
+		#social ul {
+			border: 0!important;
+			list-style: none;
+			padding-left: 0;
+			text-align: center;
+		}
+		#social li a[href*="twitter.com"] .fa:before,
+		.fa-twitter:before {
+			content: "\f099"
+		}
+		#social li a[href*="facebook.com"] .fa:before,
+		.fa-facebook-f:before,
+		.fa-facebook:before {
+			content: "\f09a"
+		}
+		#social li a[href*="github.com"] .fa:before,
+		.fa-github:before {
+			content: "\f09b"
+		}
+		#social li a[href*="/feed"] .fa:before,
+		.fa-rss:before {
+			content: "\f09e"
+		}
+		#social li a[href*="pinterest.com"] .fa:before,
+		.fa-pinterest:before {
+			content: "\f0d2"
+		}
+		#social li a[href*="plus.google.com"] .fa:before,
+		.fa-google-plus:before {
+			content: "\f0d5"
+		}
+		#social li a[href*="linkedin.com"] .fa:before,
+		.fa-linkedin:before {
+			content: "\f0e1"
+		}
+		#social li a[href*="youtube.com"] .fa:before,
+		.fa-youtube:before {
+			content: "\f167"
+		}
+		#social li a[href*="instagram.com"] .fa:before,
+		.fa-instagram:before {
+			content: "\f16d"
+		}
+		#social li a[href*="flickr.com"] .fa:before,
+		.fa-flickr:before {
+			content: "\f16e"
+		}
+		#social li a[href*="tumblr.com"] .fa:before,
+		.fa-tumblr:before {
+			content: "\f173"
+		}
+		#social li a[href*="dribbble.com"] .fa:before,
+		.fa-dribbble:before {
+			content: "\f17d"
+		}
+		#social li a[href*="skype.com"] .fa:before,
+		.fa-skype:before {
+			content: "\f17e"
+		}
+		#social li a[href*="foursquare.com"] .fa:before,
+		.fa-foursquare:before {
+			content: "\f180"
+		}
+		#social li a[href*="vimeo.com"] .fa:before,
+		.fa-vimeo-square:before {
+			content: "\f194"
+		}
+		#social li a[href*="weheartit.com"] .fa:before,
+		.fa-heart:before {
+			content: "\f004"
+		}
+		#social li a[href*="spotify.com"] .fa:before,
+		.fa-spotify:before {
+			content: "\f1bc"
+		}
+		#social li a[href*="soundcloud.com"] .fa:before,
+		.fa-soundcloud:before {
+			content: "\f1be"
+		}
+		#social li a[href*="medium.com"] .fa:before,
+		.fa-medium:before {
+			content: "\f23a"
+		}
+		#social li a[href*="@paulus.com"] .fa:before,
+		.fa-envelope:before {
+			content: "\f0e0"
+		}
+		#social li a[href*="0719"] .fa:before,
+		.fa-phone:before {
+			content: "\f095"
+		}
+		#social li a[href*="wolfpaulus.com"] .fa:before,
+		.fa-home:before {
+			content: "\f015"
+		}			
+	</style><style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><link rel="icon" href="https://wolfpaulus.com/wp-content/uploads/2016/12/cropped-wp512-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="https://wolfpaulus.com/wp-content/uploads/2016/12/cropped-wp512-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://wolfpaulus.com/wp-content/uploads/2016/12/cropped-wp512-180x180.jpg" />
+<meta name="msapplication-TileImage" content="https://wolfpaulus.com/wp-content/uploads/2016/12/cropped-wp512-270x270.jpg" />
+<style>button#responsive-menu-button,#responsive-menu-container{display: none;-webkit-text-size-adjust: 100%}@media screen and (max-width:80000px){#responsive-menu-container{display: block;position: fixed;top: 0;bottom: 0;z-index: 99998;padding-bottom: 5px;margin-bottom: -5px;outline: 1px solid transparent;overflow-y: auto;overflow-x: hidden}#responsive-menu-container .responsive-menu-search-box{width: 100%;padding: 0 2%;border-radius: 2px;height: 50px;-webkit-appearance: none}#responsive-menu-container.push-left,#responsive-menu-container.slide-left{transform: translateX(-100%);-ms-transform: translateX(-100%);-webkit-transform: translateX(-100%);-moz-transform: translateX(-100%)}.responsive-menu-open #responsive-menu-container.push-left,.responsive-menu-open #responsive-menu-container.slide-left{transform: translateX(0);-ms-transform: translateX(0);-webkit-transform: translateX(0);-moz-transform: translateX(0)}#responsive-menu-container.push-top,#responsive-menu-container.slide-top{transform: translateY(-100%);-ms-transform: translateY(-100%);-webkit-transform: translateY(-100%);-moz-transform: translateY(-100%)}.responsive-menu-open #responsive-menu-container.push-top,.responsive-menu-open #responsive-menu-container.slide-top{transform: translateY(0);-ms-transform: translateY(0);-webkit-transform: translateY(0);-moz-transform: translateY(0)}#responsive-menu-container.push-right,#responsive-menu-container.slide-right{transform: translateX(100%);-ms-transform: translateX(100%);-webkit-transform: translateX(100%);-moz-transform: translateX(100%)}.responsive-menu-open #responsive-menu-container.push-right,.responsive-menu-open #responsive-menu-container.slide-right{transform: translateX(0);-ms-transform: translateX(0);-webkit-transform: translateX(0);-moz-transform: translateX(0)}#responsive-menu-container.push-bottom,#responsive-menu-container.slide-bottom{transform: translateY(100%);-ms-transform: translateY(100%);-webkit-transform: translateY(100%);-moz-transform: translateY(100%)}.responsive-menu-open #responsive-menu-container.push-bottom,.responsive-menu-open #responsive-menu-container.slide-bottom{transform: translateY(0);-ms-transform: translateY(0);-webkit-transform: translateY(0);-moz-transform: translateY(0)}#responsive-menu-container,#responsive-menu-container:before,#responsive-menu-container:after,#responsive-menu-container *,#responsive-menu-container *:before,#responsive-menu-container *:after{box-sizing: border-box;margin: 0;padding: 0}#responsive-menu-container #responsive-menu-search-box,#responsive-menu-container #responsive-menu-additional-content,#responsive-menu-container #responsive-menu-title{padding: 25px 5%}#responsive-menu-container #responsive-menu,#responsive-menu-container #responsive-menu ul{width: 100%}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu{display: none}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu.responsive-menu-submenu-open{display: block}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-1 a.responsive-menu-item-link{padding-left:10%}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-2 a.responsive-menu-item-link{padding-left:15%}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-3 a.responsive-menu-item-link{padding-left:20%}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-4 a.responsive-menu-item-link{padding-left:25%}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu-depth-5 a.responsive-menu-item-link{padding-left:30%}#responsive-menu-container li.responsive-menu-item{width: 100%;list-style: none}#responsive-menu-container li.responsive-menu-item a{width: 100%;display: block;text-decoration: none;position: relative}#responsive-menu-container #responsive-menu li.responsive-menu-item a{padding: 0 5%}#responsive-menu-container .responsive-menu-submenu li.responsive-menu-item a{padding: 0 5%}#responsive-menu-container li.responsive-menu-item a .fa{margin-right: 15px}#responsive-menu-container li.responsive-menu-item a .responsive-menu-subarrow{position: absolute;top: 0;bottom: 0;text-align: center;overflow: hidden}#responsive-menu-container li.responsive-menu-item a .responsive-menu-subarrow.fa{margin-right: 0}button#responsive-menu-button .responsive-menu-button-icon-inactive{display: none}button#responsive-menu-button{z-index: 99999;display: none;overflow: hidden;outline: none}button#responsive-menu-button img{max-width: 100%}.responsive-menu-label{display: inline-block;font-weight: 600;margin: 0 5px;vertical-align: middle}.responsive-menu-label .responsive-menu-button-text-open{display: none}.responsive-menu-accessible{display: inline-block}.responsive-menu-accessible .responsive-menu-box{display: inline-block;vertical-align: middle}.responsive-menu-label.responsive-menu-label-top,.responsive-menu-label.responsive-menu-label-bottom{display: block;margin: 0 auto}button#responsive-menu-button{padding: 0 0;display: inline-block;cursor: pointer;transition-property: opacity, filter;transition-duration: 0.15s;transition-timing-function: linear;font: inherit;color: inherit;text-transform: none;background-color: transparent;border: 0;margin: 0;overflow: visible}.responsive-menu-box{width:24px;height:14px;display: inline-block;position: relative}.responsive-menu-inner{display: block;top: 50%;margin-top:-1px}.responsive-menu-inner,.responsive-menu-inner::before,.responsive-menu-inner::after{width:24px;height:2px;background-color:#ffffff;border-radius: 4px;position: absolute;transition-property: transform;transition-duration: 0.15s;transition-timing-function: ease}.responsive-menu-open .responsive-menu-inner,.responsive-menu-open .responsive-menu-inner::before,.responsive-menu-open .responsive-menu-inner::after{background-color:#ffffff}button#responsive-menu-button:hover .responsive-menu-inner,button#responsive-menu-button:hover .responsive-menu-inner::before,button#responsive-menu-button:hover .responsive-menu-inner::after,button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner,button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner::before,button#responsive-menu-button:hover .responsive-menu-open .responsive-menu-inner::after,button#responsive-menu-button:focus .responsive-menu-inner,button#responsive-menu-button:focus .responsive-menu-inner::before,button#responsive-menu-button:focus .responsive-menu-inner::after,button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner,button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner::before,button#responsive-menu-button:focus .responsive-menu-open .responsive-menu-inner::after{background-color:#ffffff}.responsive-menu-inner::before,.responsive-menu-inner::after{content: "";display: block}.responsive-menu-inner::before{top:-6px}.responsive-menu-inner::after{bottom:-6px}.responsive-menu-boring .responsive-menu-inner,.responsive-menu-boring .responsive-menu-inner::before,.responsive-menu-boring .responsive-menu-inner::after{transition-property: none}.responsive-menu-boring.is-active .responsive-menu-inner{transform: rotate(45deg)}.responsive-menu-boring.is-active .responsive-menu-inner::before{top: 0;opacity: 0}.responsive-menu-boring.is-active .responsive-menu-inner::after{bottom: 0;transform: rotate(-90deg)}button#responsive-menu-button{width:38px;height:38px;position:fixed;top:10px;left:2%;background:#000000}.responsive-menu-open button#responsive-menu-button{background:#000000}.responsive-menu-open button#responsive-menu-button:hover,.responsive-menu-open button#responsive-menu-button:focus,button#responsive-menu-button:hover,button#responsive-menu-button:focus{background:#000000}button#responsive-menu-button .responsive-menu-box{color:#ffffff}.responsive-menu-open button#responsive-menu-button .responsive-menu-box{color:#ffffff}.responsive-menu-label{color:#ffffff;font-size:14px;line-height:12px}button#responsive-menu-button{display: inline-block;transition: transform 0.2s, background-color 0.2s}html.responsive-menu-open{cursor: pointer}#responsive-menu-container{cursor: initial}#responsive-menu-container{width:70%;left: 0;transition: transform 0.2s;text-align:left;max-width:250px;min-width:250px;background:#303030}#responsive-menu-container #responsive-menu-wrapper{background:#303030}#responsive-menu-container #responsive-menu-additional-content{color:#ffffff}#responsive-menu-container .responsive-menu-search-box{background:#ffffff;border: 2px solid #dadada;color:#3c3c3c}#responsive-menu-container .responsive-menu-search-box:-ms-input-placeholder{color:#3c3c3c}#responsive-menu-container .responsive-menu-search-box::-webkit-input-placeholder{color:#3c3c3c}#responsive-menu-container .responsive-menu-search-box:-moz-placeholder{color:#3c3c3c;opacity: 1}#responsive-menu-container .responsive-menu-search-box::-moz-placeholder{color:#3c3c3c;opacity: 1}#responsive-menu-container .responsive-menu-item-link,#responsive-menu-container #responsive-menu-title,#responsive-menu-container .responsive-menu-subarrow{transition: background-color 0.2s, border-color 0.2s, color 0.2s}#responsive-menu-container #responsive-menu-title{background-color:#303030;color:#daa520;font-size:14px;text-align:left}#responsive-menu-container #responsive-menu-title a{color:#daa520;font-size:14px;text-decoration: none}#responsive-menu-container #responsive-menu-title a:hover{color:#ffffff}#responsive-menu-container #responsive-menu-title:hover{background-color:#3c3c3c;color:#ffffff}#responsive-menu-container #responsive-menu-title:hover a{color:#ffffff}#responsive-menu-container #responsive-menu-title #responsive-menu-title-image{display: inline-block;vertical-align: middle;max-width: 100%;margin-bottom: 15px}#responsive-menu-container #responsive-menu-title #responsive-menu-title-image img{max-width: 100%}#responsive-menu-container #responsive-menu > li.responsive-menu-item:first-child > a{border-top:0px solid #303030}#responsive-menu-container #responsive-menu li.responsive-menu-item .responsive-menu-item-link{font-size:14px}#responsive-menu-container #responsive-menu li.responsive-menu-item a{line-height:40px;border-bottom:0px solid #303030;color:#ffffff;background-color:#303030;height:40px}#responsive-menu-container #responsive-menu li.responsive-menu-item a:hover{color:#ffffff;background-color:#c00000;border-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a:hover .responsive-menu-subarrow{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a:hover .responsive-menu-subarrow.responsive-menu-subarrow-active{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow{right: 0;height:40px;line-height:40px;width:40px;color:#ffffff;border-left:0px solid #212121;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active{color:#c00000;border-color:#212121;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active:hover{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-item a .responsive-menu-subarrow:hover{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-current-item > .responsive-menu-item-link{background-color:#303030;color:#ffffff;border-color:#303030}#responsive-menu-container #responsive-menu li.responsive-menu-current-item > .responsive-menu-item-link:hover{background-color:#c00000;color:#ffffff;border-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item .responsive-menu-item-link{font-size:15px;text-align:left}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a{height:40px;line-height:40px;border-bottom:0px solid #303030;color:#ffffff;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a:hover{color:#ffffff;background-color:#e03030;border-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a:hover .responsive-menu-subarrow{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a:hover .responsive-menu-subarrow.responsive-menu-subarrow-active{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a .responsive-menu-subarrow{left:unset;right:0;height:34px;line-height:34px;width:34px;color:#ffffff;border-left:0px solid #212121!important;border-right:unset!important;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active{color:#e03030;border-color:#212121;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a .responsive-menu-subarrow.responsive-menu-subarrow-active:hover{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-item a .responsive-menu-subarrow:hover{color:#ffffff;border-color:#3f3f3f;background-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-current-item > .responsive-menu-item-link{background-color:#303030;color:#ffffff;border-color:#303030}#responsive-menu-container #responsive-menu ul.responsive-menu-submenu li.responsive-menu-current-item > .responsive-menu-item-link:hover{background-color:#e03030;color:#ffffff;border-color:#303030}}</style><script>jQuery(document).ready(function($){var ResponsiveMenu ={trigger: '#responsive-menu-button',animationSpeed:200,breakpoint:80000,pushButton: 'on',animationType: 'slide',animationSide: 'left',pageWrapper: '',isOpen: false,triggerTypes: 'click',activeClass: 'is-active',container: '#responsive-menu-container',openClass: 'responsive-menu-open',accordion: 'on',activeArrow: '▲',inactiveArrow: '▼',wrapper: '#responsive-menu-wrapper',closeOnBodyClick: 'on',closeOnLinkClick: 'off',itemTriggerSubMenu: 'on',linkElement: '.responsive-menu-item-link',subMenuTransitionTime:200,openMenu: function(){$(this.trigger).addClass(this.activeClass);$('html').addClass(this.openClass);$('.responsive-menu-button-icon-active').hide();$('.responsive-menu-button-icon-inactive').show();this.setButtonTextOpen();this.setWrapperTranslate();this.isOpen = true},closeMenu: function(){$(this.trigger).removeClass(this.activeClass);$('html').removeClass(this.openClass);$('.responsive-menu-button-icon-inactive').hide();$('.responsive-menu-button-icon-active').show();this.setButtonText();this.clearWrapperTranslate();this.isOpen = false},setButtonText: function(){if($('.responsive-menu-button-text-open').length > 0 && $('.responsive-menu-button-text').length > 0){$('.responsive-menu-button-text-open').hide();$('.responsive-menu-button-text').show()}},setButtonTextOpen: function(){if($('.responsive-menu-button-text').length > 0 && $('.responsive-menu-button-text-open').length > 0){$('.responsive-menu-button-text').hide();$('.responsive-menu-button-text-open').show()}},triggerMenu: function(){this.isOpen ? this.closeMenu() : this.openMenu()},triggerSubArrow: function(subarrow){var sub_menu = $(subarrow).parent().siblings('.responsive-menu-submenu');var self = this;if(this.accordion == 'on'){var top_siblings = sub_menu.parents('.responsive-menu-item-has-children').last().siblings('.responsive-menu-item-has-children');var first_siblings = sub_menu.parents('.responsive-menu-item-has-children').first().siblings('.responsive-menu-item-has-children');top_siblings.children('.responsive-menu-submenu').slideUp(self.subMenuTransitionTime, 'linear').removeClass('responsive-menu-submenu-open');top_siblings.each(function(){$(this).find('.responsive-menu-subarrow').first().html(self.inactiveArrow);$(this).find('.responsive-menu-subarrow').first().removeClass('responsive-menu-subarrow-active')});first_siblings.children('.responsive-menu-submenu').slideUp(self.subMenuTransitionTime, 'linear').removeClass('responsive-menu-submenu-open');first_siblings.each(function(){$(this).find('.responsive-menu-subarrow').first().html(self.inactiveArrow);$(this).find('.responsive-menu-subarrow').first().removeClass('responsive-menu-subarrow-active')})}if(sub_menu.hasClass('responsive-menu-submenu-open')){sub_menu.slideUp(self.subMenuTransitionTime, 'linear').removeClass('responsive-menu-submenu-open');$(subarrow).html(this.inactiveArrow);$(subarrow).removeClass('responsive-menu-subarrow-active')}else{sub_menu.slideDown(self.subMenuTransitionTime, 'linear').addClass('responsive-menu-submenu-open');$(subarrow).html(this.activeArrow);$(subarrow).addClass('responsive-menu-subarrow-active')}},menuHeight: function(){return $(this.container).height()},menuWidth: function(){return $(this.container).width()},wrapperHeight: function(){return $(this.wrapper).height()},setWrapperTranslate: function(){switch(this.animationSide){case 'left':translate = 'translateX(' + this.menuWidth() + 'px)';break;case 'right':translate = 'translateX(-' + this.menuWidth() + 'px)';break;case 'top':translate = 'translateY(' + this.wrapperHeight() + 'px)';break;case 'bottom':translate = 'translateY(-' + this.menuHeight() + 'px)';break}if(this.animationType == 'push'){$(this.pageWrapper).css({'transform':translate});$('html, body').css('overflow-x', 'hidden')}if(this.pushButton == 'on'){$('#responsive-menu-button').css({'transform':translate})}},clearWrapperTranslate: function(){var self = this;if(this.animationType == 'push'){$(this.pageWrapper).css({'transform':''});setTimeout(function(){$('html, body').css('overflow-x', '')}, self.animationSpeed)}if(this.pushButton == 'on'){$('#responsive-menu-button').css({'transform':''})}},init: function(){var self = this;$(this.trigger).on(this.triggerTypes, function(e){e.stopPropagation();self.triggerMenu()});$(this.trigger).mouseup(function(){$(self.trigger).blur()});$('.responsive-menu-subarrow').on('click', function(e){e.preventDefault();e.stopPropagation();self.triggerSubArrow(this)});$(window).resize(function(){if($(window).width() > self.breakpoint){if(self.isOpen){self.closeMenu()}}else{if($('.responsive-menu-open').length>0){self.setWrapperTranslate()}}});if(this.closeOnLinkClick == 'on'){$(this.linkElement).on('click', function(e){e.preventDefault();if(self.itemTriggerSubMenu == 'on' && $(this).is('.responsive-menu-item-has-children > ' + self.linkElement)){return}old_href = $(this).attr('href');old_target = typeof $(this).attr('target') == 'undefined' ? '_self' : $(this).attr('target');if(self.isOpen){if($(e.target).closest('.responsive-menu-subarrow').length){return}self.closeMenu();setTimeout(function(){window.open(old_href, old_target)}, self.animationSpeed)}})}if(this.closeOnBodyClick == 'on'){$(document).on('click', 'body', function(e){if(self.isOpen){if($(e.target).closest('#responsive-menu-container').length || $(e.target).closest('#responsive-menu-button').length){return}}self.closeMenu()})}if(this.itemTriggerSubMenu == 'on'){$('.responsive-menu-item-has-children > ' + this.linkElement).on('click', function(e){e.preventDefault();self.triggerSubArrow($(this).children('.responsive-menu-subarrow').first())})}if (jQuery('#responsive-menu-button').css('display') != 'none'){$('#responsive-menu-button,#responsive-menu a.responsive-menu-item-link, #responsive-menu-wrapper input').focus( function(){$(this).addClass('is-active');$('html').addClass('responsive-menu-open');$('#responsive-menu li').css({"opacity": "1", "margin-left": "0"})});$('#responsive-menu-button, a.responsive-menu-item-link,#responsive-menu-wrapper input').focusout( function(){if ( $(this).last('#responsive-menu-button a.responsive-menu-item-link') ){$(this).removeClass('is-active');$('html').removeClass('responsive-menu-open')}})}$('#responsive-menu a.responsive-menu-item-link').keydown(function(event){console.log( event.keyCode );if ( [13,27,32,35,36,37,38,39,40].indexOf( event.keyCode) == -1){return}var link = $(this);switch(event.keyCode){case 13:link.click();break;case 27:var dropdown = link.parent('li').parents('.responsive-menu-submenu');if ( dropdown.length > 0 ){dropdown.hide();dropdown.prev().focus()}break;case 32:var dropdown = link.parent('li').find('.responsive-menu-submenu');if ( dropdown.length > 0 ){dropdown.show();dropdown.find('a, input, button, textarea').first().focus()}break;case 35:var dropdown = link.parent('li').find('.responsive-menu-submenu');if ( dropdown.length > 0 ){dropdown.hide()}$(this).parents('#responsive-menu').find('a.responsive-menu-item-link').filter(':visible').last().focus();break;case 36:var dropdown = link.parent('li').find('.responsive-menu-submenu');if( dropdown.length > 0 ){dropdown.hide()}$(this).parents('#responsive-menu').find('a.responsive-menu-item-link').filter(':visible').first().focus();break;case 37:case 38:event.preventDefault();event.stopPropagation();if ( link.parent('li').prevAll('li').filter(':visible').first().length == 0){link.parent('li').nextAll('li').filter(':visible').last().find('a').first().focus()}else{link.parent('li').prevAll('li').filter(':visible').first().find('a').first().focus()}break;case 39:case 40:event.preventDefault();event.stopPropagation();if( link.parent('li').nextAll('li').filter(':visible').first().length == 0){link.parent('li').prevAll('li').filter(':visible').last().find('a').first().focus()}else{link.parent('li').nextAll('li').filter(':visible').first().find('a').first().focus()}break}})}};ResponsiveMenu.init()});</script>
+</head>
+
+<body class="post-template-default single single-post postid-9175 single-format-standard wp-custom-logo has-full-width responsive-menu-slide-left">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="site-navigation-inner col-sm-12">
+						<div class="navbar-header">
+							<button type="button" class="btn navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="collapse navbar-collapse navbar-ex1-collapse"><ul id="menu-main-menu" class="nav navbar-nav"><li id="menu-item-8569" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-8569"><a title="&lt;i class=&quot;fa fa-home fa-lg fa-fw&quot;&gt;&lt;/i&gt; Home" href="https://wolfpaulus.com/" data-wpel-link="internal"><i class="fa fa-home fa-lg fa-fw"></i> Home</a></li>
+<li id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a title="&lt;i class=&quot;fa fa-user fa-lg fa-fw&quot;&gt;&lt;/i&gt; About" href="https://wolfpaulus.com/about/" data-wpel-link="internal"><i class="fa fa-user fa-lg fa-fw"></i> About</a></li>
+<li id="menu-item-8281" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8281"><a title="&lt;i class=&quot;fa fa-cloud  fa-lg fa-fw&quot;&gt;&lt;/i&gt; Software" href="https://wolfpaulus.com/software/" data-wpel-link="internal"><i class="fa fa-cloud  fa-lg fa-fw"></i> Software</a></li>
+<li id="menu-item-8283" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8283"><a title="&lt;i class=&quot;fa fa-server fa-lg fa-fw&quot;&gt;&lt;/i&gt; Systems" href="https://wolfpaulus.com/systems/" data-wpel-link="internal"><i class="fa fa-server fa-lg fa-fw"></i> Systems</a></li>
+<li id="menu-item-7632" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7632"><a title="&lt;i class=&quot;fa fa-microphone fa-lg fa-fw&quot;&gt;&lt;/i&gt; Talks" href="https://wolfpaulus.com/talks/" data-wpel-link="internal"><i class="fa fa-microphone fa-lg fa-fw"></i> Talks</a></li>
+<li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a title="&lt;i class=&quot;fa fa-video-camera fa-lg fa-fw&quot; &gt;&lt;/I&gt; Videos" href="https://wolfpaulus.com/videos/" data-wpel-link="internal"><i class="fa fa-video-camera fa-lg fa-fw" ></I> Videos</a></li>
+<li id="menu-item-6944" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-has-children menu-item-6944"><a title="&lt;i class=&quot;fa fa-rss fa-lg  fa-fw&quot;&gt;&lt;/i&gt; Blog" href="https://wolfpaulus.com/journal/" data-wpel-link="internal"><i class="fa fa-rss fa-lg  fa-fw"></i> Blog </a><span class="activello-dropdown"></span>
+<ul role="menu" class=" dropdown-menu">
+	<li id="menu-item-7880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7880"><a title="All Posts" href="/journal/" data-wpel-link="internal">All Posts</a></li>
+	<li id="menu-item-6956" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6956"><a title="Android" href="https://wolfpaulus.com/category/android/" data-wpel-link="internal">Android</a></li>
+	<li id="menu-item-6941" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6941"><a title="Embedded" href="https://wolfpaulus.com/category/embedded/" data-wpel-link="internal">Embedded</a></li>
+	<li id="menu-item-7564" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-7564"><a title="Hardware" href="https://wolfpaulus.com/category/hardware/" data-wpel-link="internal">Hardware</a></li>
+	<li id="menu-item-6957" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-6957"><a title="Java" href="https://wolfpaulus.com/category/java/" data-wpel-link="internal">Java</a></li>
+	<li id="menu-item-7563" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-7563"><a title="Life" href="https://wolfpaulus.com/category/life/" data-wpel-link="internal">Life</a></li>
+	<li id="menu-item-6942" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-6942"><a title="Mac" href="https://wolfpaulus.com/category/mac/" data-wpel-link="internal">Mac</a></li>
+	<li id="menu-item-7562" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-7562"><a title="Technology" href="https://wolfpaulus.com/category/technology/" data-wpel-link="internal">Technology</a></li>
+</ul>
+</li>
+<li id="menu-item-8591" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8591"><a title="&lt;i class=&quot;fa fa-file-text-o fa-lg fa-fw&quot;&gt;&lt;/i&gt; Resume" rel="httpswolfpauluscomwolfpaulus" href="https://wolfpaulus.com/resume/" data-wpel-link="internal"><i class="fa fa-file-text-o fa-lg fa-fw"></i> Resume</a></li>
+</ul></div>
+						<div class="nav-search"><form action="https://wolfpaulus.com/" method="get"><input type="text" name="s" value="" placeholder="Search"><button type="submit" class="header-search-icon" name="submit" id="searchsubmit" value="Search"><i class="fa fa-search"></i></button></form>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav><!-- .site-navigation -->
+
+		
+		<div class="container">
+			<div id="logo">
+				<span class="site-name">
+									<a href="https://wolfpaulus.com/" class="custom-logo-link" rel="home" data-wpel-link="internal"><img width="1600" height="401" src="https://wolfpaulus.com/wp-content/uploads/2016/12/future_tech.jpg" class="custom-logo" alt="Wolf Paulus" srcset="https://wolfpaulus.com/wp-content/uploads/2016/12/future_tech.jpg 1600w, https://wolfpaulus.com/wp-content/uploads/2016/12/future_tech-300x75.jpg 300w, https://wolfpaulus.com/wp-content/uploads/2016/12/future_tech-768x192.jpg 768w, https://wolfpaulus.com/wp-content/uploads/2016/12/future_tech-1024x257.jpg 1024w" sizes="(max-width: 1600px) 100vw, 1600px" /></a>
+									</span><!-- end of .site-name -->
+
+							</div><!-- end of #logo -->
+
+						<div id="line"></div>
+					</div>
+
+	</header><!-- #masthead -->
+
+
+	<div id="content" class="site-content">
+
+		<div class="top-section">
+					</div>
+
+		<div class="container main-content-area">
+
+						<div class="cat-title">
+				<ul class="post-categories">
+	<li><a href="https://wolfpaulus.com/category/mac/" rel="category tag" data-wpel-link="internal">Mac</a></li></ul>			</div>
+									
+			<div class="row">
+				<div class="main-content-inner col-sm-12 col-md-8 full-width">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-9175" class="post-9175 post type-post status-publish format-standard has-post-thumbnail hentry category-mac tag-big-sur tag-java tag-mac tag-tomcat">
+	<div class="blog-item-wrap">
+		<div class="post-inner-content">
+			<header class="entry-header page-header">
+				<h1 class="entry-title">Installing Tomcat on macOS 11 Big Sur</h1>
+
+								<div class="entry-meta">
+					<span class="posted-on">Posted on <a href="https://wolfpaulus.com/tomcat/" rel="bookmark" data-wpel-link="internal"><time class="entry-date published" datetime="2020-11-19T15:54:08-07:00">November 19, 2020</time><time class="updated" datetime="2021-07-29T15:07:53-07:00">July 29, 2021</time></a></span>by <span class="author vcard"><a class="url fn n" href="https://wolfpaulus.com/author/wolfpaulus/" data-wpel-link="internal">Wolf Paulus</a></span>
+					
+				</div><!-- .entry-meta -->
+							</header><!-- .entry-header -->
+			
+			<a href="https://wolfpaulus.com/tomcat/" title="Installing Tomcat on macOS 11 Big Sur" data-wpel-link="internal">
+				<img width="1170" height="550" src="https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs-1170x550.jpg" class="single-featured wp-post-image" alt="" loading="lazy" srcset="https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs.jpg 1170w, https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs-300x141.jpg 300w, https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs-700x329.jpg 700w, https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs-768x361.jpg 768w, https://wolfpaulus.com/wp-content/uploads/2020/11/tcmacbs-710x335.jpg 710w" sizes="(max-width: 1170px) 100vw, 1170px" />			</a>
+			
+			<div class="entry-content">
+
+				<p>The Servlet 4.0 specification is out and Tomcat 9.0.x does support it. Time to dive into Tomcat 9.</p>
+<h2>Prerequisite: Java</h2>
+<p>Since OS X 10.7 Java is not (pre-)installed anymore, let’s fix that by installing a <strong>Prebuilt OpenJDK Binary</strong>. Easy to follow details about how to install OpenJDK are available <a href="https://wolfpaulus.com/java-on-macos-big-sur/" target="_blank" rel="noopener noreferrer" data-wpel-link="internal">here</a>. Anyway, after opening the Terminal app,</p>
+<pre>java --version</pre>
+<p>hopefully shows something like this:</p>
+<pre>openjdk 11.0.9 2020-10-20
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9+11)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9+11, mixed mode)</pre>
+<p>Whatever you do, when opening Terminal and running ‘java &#8211;version’, you should see something like this, with a version of at least 1.8.x I.e. <strong>Tomcat 9.x requires Java 8 or later.</strong></p>
+<div class="su-box su-box-style-default" id="" style="border-color:#000000;border-radius:3px"><div class="su-box-title" style="background-color:#000000;color:#ffffff;border-top-left-radius:1px;border-top-right-radius:1px">sudo</div><div class="su-box-content su-u-clearfix su-u-trim" style="border-bottom-left-radius:1px;border-bottom-right-radius:1px">sudo is a program for Unix-like operating systems, allowing you to run programs with the security privileges of another user (normally the superuser, or root). Since we are creating directories, outside of your home folder, administrator right are required. I.e., when executing sudo you will be asked to enter your password; and your Mac User account needs to be an ‘Admin’ account.</div></div>
+<p>JAVA_HOME is an important environment variable, not just for Tomcat, and it’s important to get it right. Here is a trick that allows me to keep the environment variable current, even after a Java Update was installed. In ~/.zshrc, I set the variable like so:</p>
+<pre class="">export JAVA_HOME=$(/usr/libexec/java_home)
+
+</pre>
+<h2>Installing Tomcat</h2>
+<p>Here are the easy to follow steps to get it up and running on your Mac</p>
+<ol>
+<li>Download a binary distribution of the core module: apache-tomcat-9.0.40 from <a title="Apache Tomcat Download Page" href="http://tomcat.apache.org/download-90.cgi" target="_blank" rel="noopener noreferrer external" data-wpel-link="external">here</a>. I picked the <em><strong>tar.gz</strong></em> in Binary Distributions <strong>Core</strong> section.</li>
+<li>Opening/unarchiving the archive will create a new folder structure in your <em>Downloads</em> folder: (btw, this free <a title=" The Unarchiver" href="https://itunes.apple.com/us/app/the-unarchiver/id425424353?mt=12" target="_blank" rel="noopener noreferrer external" data-wpel-link="external">Unarchiver app</a> is perfect for all kinds of compressed files and superior to the built-in Archive Utility.app)<br />
+~/Downloads/apache-tomcat-9.0.40</li>
+<li>Open the Terminal app to move the unarchived distribution to /usr/local like so:<br />
+<code>sudo mkdir -p /usr/local</code><br />
+<code>sudo mv ~/Downloads/apache-tomcat-9.0.40 /usr/local</code></li>
+<li>To make it easy to replace this release with future releases, we are going to create a symbolic link that we are going to use when referring to Tomcat (after removing the old link, you might have from installing a previous version):<br />
+<code>sudo rm -f /Library/Tomcat</code><br />
+<code>sudo ln -s /usr/local/apache-tomcat-9.0.40 /Library/Tomcat</code></li>
+<li>Change ownership of the /Library/Tomcat folder hierarchy:<br />
+<code>sudo chown -R &lt;your_username&gt; /Library/Tomcat</code></li>
+<li>Make all scripts in Tomcat&#8217;s ./bin folder executable:<br />
+<code>sudo chmod +x /Library/Tomcat/bin/*.sh</code></li>
+</ol>
+<h2></h2>
+<h2>Tomcat 9.x</h2>
+<p>Starting and stoping Tomcat works with executing the provided scripts, like so:<br />
+<code>/Library/Tomcat/bin/startup.sh<br />
+/Library/Tomcat/bin/shutdown.sh</code></p>
+<p>Finally, after your started Tomcat, open your Mac’s Web browser and take a look at the default page: <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer external" data-wpel-link="external">http://localhost:8080</a></p>
+<p><img loading="lazy" class="aligncenter size-large wp-image-9184" src="https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-700x701.jpg" alt="" width="697" height="698" srcset="https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-700x701.jpg 700w, https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-300x300.jpg 300w, https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-150x150.jpg 150w, https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-768x769.jpg 768w, https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-1533x1536.jpg 1533w, https://wolfpaulus.com/wp-content/uploads/2020/11/tc940-2044x2048.jpg 2044w" sizes="(max-width: 697px) 100vw, 697px" /></p>
+<div class="scriptlesssocialsharing"><h3 class="scriptlesssocialsharing__heading">Share this post:</h3><div class="scriptlesssocialsharing-buttons"><a class="button linkedin" target="_blank" href="https://www.linkedin.com/shareArticle?mini=1&#038;url=https%3A%2F%2Fwolfpaulus.com%2Ftomcat%2F&#038;title=Installing%20Tomcat%20on%20macOS%2011%20Big%20Sur&#038;source=https%3A%2F%2Fwolfpaulus.com" rel="noopener noreferrer nofollow external" data-wpel-link="external"><span class="sss-name"><span class="screen-reader-text">Share on </span>LinkedIn</span></a><a class="button email" href="mailto:?body=I%20read%20this%20post%20and%20wanted%20to%20share%20it%20with%20you.%20Here%27s%20the%20link%3A%20https%3A%2F%2Fwolfpaulus.com%2Ftomcat%2F&#038;subject=A%20post%20worth%20sharing%3A%20Installing%20Tomcat%20on%20macOS%2011%20Big%20Sur" rel="noopener noreferrer nofollow"><span class="sss-name"><span class="screen-reader-text">Share on </span>Email</span></a></div></div>				
+								
+			</div><!-- .entry-content -->
+			<div class="entry-footer">
+								<span class="comments-link"><a href="https://wolfpaulus.com/tomcat/#comments" data-wpel-link="internal">Comments (14)</a></span>
+					
+								<!-- tags -->
+				<div class="tagcloud">
+
+					<a href="https://wolfpaulus.com/tag/big-sur/" data-wpel-link="internal">Big Sur</a> <a href="https://wolfpaulus.com/tag/java/" data-wpel-link="internal">java</a> <a href="https://wolfpaulus.com/tag/mac/" data-wpel-link="internal">mac</a> <a href="https://wolfpaulus.com/tag/tomcat/" data-wpel-link="internal">tomcat</a> 
+				</div>
+				<!-- end tags -->
+							</div><!-- .entry-footer -->
+		</div>
+	</div>
+</article><!-- #post-## -->
+
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+		14 Replies to &ldquo;Installing Tomcat on macOS 11 Big Sur&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+				<li class="comment even thread-even depth-1" id="comment-124202">
+			<div id="div-comment-124202" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/2ae258e0d3c24bd60e7d600a3eebc08d?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/2ae258e0d3c24bd60e7d600a3eebc08d?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Shader Monkey</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=124202#respond" data-commentid="124202" data-postid="9175" data-belowelement="div-comment-124202" data-respondelement="respond" data-replyto="Reply to Shader Monkey" aria-label="Reply to Shader Monkey" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-124202" data-wpel-link="internal">
+			February 6, 2021 at 11:12 pm</a>		</div>
+	</div>
+
+	
+	<p>Great tutorial and works brilliantly!</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-128754">
+			<div id="div-comment-128754" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/fc026bfd7211681a1e10c4807994e793?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/fc026bfd7211681a1e10c4807994e793?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Jakub</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=128754#respond" data-commentid="128754" data-postid="9175" data-belowelement="div-comment-128754" data-respondelement="respond" data-replyto="Reply to Jakub" aria-label="Reply to Jakub" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-128754" data-wpel-link="internal">
+			February 19, 2021 at 3:30 am</a>		</div>
+	</div>
+
+	
+	<p>Does installing Tomcat controller work for you? I download the DMG and I cant open it&#8230;</p>
+
+			</div>
+	<ol class="children">
+	<li class="comment byuser comment-author-wolfpaulus bypostauthor even depth-2" id="comment-128899">
+			<div id="div-comment-128899" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/0b6237daa99adcca2e18efe01ec5bc04?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/0b6237daa99adcca2e18efe01ec5bc04?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn"><a href="https://wolfpaulus.com" rel="external nofollow ugc noopener noreferrer" class="url" data-wpel-link="external">Wolf Paulus</a></cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=128899#respond" data-commentid="128899" data-postid="9175" data-belowelement="div-comment-128899" data-respondelement="respond" data-replyto="Reply to Wolf Paulus" aria-label="Reply to Wolf Paulus" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-128899" data-wpel-link="internal">
+			February 19, 2021 at 12:48 pm</a>		</div>
+	</div>
+
+	
+	<p>I guess the Tomcat controller was never updated to 64 bit</p>
+
+			</div>
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="comment-132015">
+			<div id="div-comment-132015" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/cb2119e705eb04216158e1901a4ac4d1?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/cb2119e705eb04216158e1901a4ac4d1?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Curtis</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=132015#respond" data-commentid="132015" data-postid="9175" data-belowelement="div-comment-132015" data-respondelement="respond" data-replyto="Reply to Curtis" aria-label="Reply to Curtis" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-132015" data-wpel-link="internal">
+			March 1, 2021 at 11:17 am</a>		</div>
+	</div>
+
+	
+	<p>Worked great, thank you so much!</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-132154">
+			<div id="div-comment-132154" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/d48e379de450938b669490a4c3c08af2?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/d48e379de450938b669490a4c3c08af2?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Solutionez</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=132154#respond" data-commentid="132154" data-postid="9175" data-belowelement="div-comment-132154" data-respondelement="respond" data-replyto="Reply to Solutionez" aria-label="Reply to Solutionez" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-132154" data-wpel-link="internal">
+			March 2, 2021 at 5:54 am</a>		</div>
+	</div>
+
+	
+	<p>this was helpful! Thanks for clear and concise guide.</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="comment-133462">
+			<div id="div-comment-133462" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/98e89129b971a81f28b80f6647f67662?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/98e89129b971a81f28b80f6647f67662?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Julia</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=133462#respond" data-commentid="133462" data-postid="9175" data-belowelement="div-comment-133462" data-respondelement="respond" data-replyto="Reply to Julia" aria-label="Reply to Julia" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-133462" data-wpel-link="internal">
+			March 5, 2021 at 4:00 pm</a>		</div>
+	</div>
+
+	
+	<p>Yep, It has worked!<br />
+Thank you!!!</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="comment-134464">
+			<div id="div-comment-134464" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/45f61ee9bc24daafdf6eacb9b0a4c0ae?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/45f61ee9bc24daafdf6eacb9b0a4c0ae?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Cameron young</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=134464#respond" data-commentid="134464" data-postid="9175" data-belowelement="div-comment-134464" data-respondelement="respond" data-replyto="Reply to Cameron young" aria-label="Reply to Cameron young" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-134464" data-wpel-link="internal">
+			March 9, 2021 at 11:20 am</a>		</div>
+	</div>
+
+	
+	<p>On the section &#8216;Change ownership of the /Library/Tomcat folder hierarchy:<br />
+sudo chown -R  /Library/Tomcat&#8217;  </p>
+<p>I enter my username which is  and I get zsh: no such file or directory: cameronyoung response. Not sure if anyone knows why?</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 parent" id="comment-138083">
+			<div id="div-comment-138083" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/bb2d075fb82de3d9128fb8af5f264a65?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/bb2d075fb82de3d9128fb8af5f264a65?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Gaspar</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=138083#respond" data-commentid="138083" data-postid="9175" data-belowelement="div-comment-138083" data-respondelement="respond" data-replyto="Reply to Gaspar" aria-label="Reply to Gaspar" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-138083" data-wpel-link="internal">
+			March 18, 2021 at 6:29 pm</a>		</div>
+	</div>
+
+	
+	<p>Worked on my Macbook Air M1 late 2020.<br />
+Thanks</p>
+
+			</div>
+	<ol class="children">
+	<li class="comment even depth-2" id="comment-182568">
+			<div id="div-comment-182568" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/6e418749219b9969e649434088cda301?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6e418749219b9969e649434088cda301?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Nhaniso Undenge</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=182568#respond" data-commentid="182568" data-postid="9175" data-belowelement="div-comment-182568" data-respondelement="respond" data-replyto="Reply to Nhaniso Undenge" aria-label="Reply to Nhaniso Undenge" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-182568" data-wpel-link="internal">
+			July 22, 2021 at 3:19 am</a>		</div>
+	</div>
+
+	
+	<p>U must write the username without including the  symbols</p>
+
+			</div>
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-168524">
+			<div id="div-comment-168524" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/4aad0768f76383a8a184c5af8c85a461?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/4aad0768f76383a8a184c5af8c85a461?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn"><a href="https://serknight-devrel.herokuapp.com/" rel="external nofollow ugc noopener noreferrer" class="url" data-wpel-link="external">Chris</a></cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=168524#respond" data-commentid="168524" data-postid="9175" data-belowelement="div-comment-168524" data-respondelement="respond" data-replyto="Reply to Chris" aria-label="Reply to Chris" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-168524" data-wpel-link="internal">
+			June 7, 2021 at 11:52 am</a>		</div>
+	</div>
+
+	
+	<p>Yeah nice one.</p>
+<p>Coming from homebrew as a ruby dev this is (a bit) excruciating 🙂 but you made it relatively simple.</p>
+<p>Looking forward to being productive and contributing to the java SDK project I am working on.</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="comment-177684">
+			<div id="div-comment-177684" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/7d05f7fcdc29d74750c6e79657601ef3?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7d05f7fcdc29d74750c6e79657601ef3?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">omar</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=177684#respond" data-commentid="177684" data-postid="9175" data-belowelement="div-comment-177684" data-respondelement="respond" data-replyto="Reply to omar" aria-label="Reply to omar" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-177684" data-wpel-link="internal">
+			June 30, 2021 at 9:21 am</a>		</div>
+	</div>
+
+	
+	<p>Downloaded then zip on my mac and works like a charm. thx</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-187260">
+			<div id="div-comment-187260" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/451e86a90b92268f0fda8a1d5b7a8f6d?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/451e86a90b92268f0fda8a1d5b7a8f6d?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">ashwani</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=187260#respond" data-commentid="187260" data-postid="9175" data-belowelement="div-comment-187260" data-respondelement="respond" data-replyto="Reply to ashwani" aria-label="Reply to ashwani" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-187260" data-wpel-link="internal">
+			August 8, 2021 at 9:00 pm</a>		</div>
+	</div>
+
+	
+	<p>how to find tomcat username or password i try admin admin but not responce??</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="comment-196042">
+			<div id="div-comment-196042" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/850f8c917fa82ec45f3e4bf2f7759398?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/850f8c917fa82ec45f3e4bf2f7759398?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn">Onkar</cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=196042#respond" data-commentid="196042" data-postid="9175" data-belowelement="div-comment-196042" data-respondelement="respond" data-replyto="Reply to Onkar" aria-label="Reply to Onkar" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-196042" data-wpel-link="internal">
+			August 30, 2021 at 10:18 pm</a>		</div>
+	</div>
+
+	
+	<p>Great. Thanks</p>
+
+			</div>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-205738">
+			<div id="div-comment-205738" class="comment-body">
+	
+	<div class="comment-author vcard asdasd">
+		<img alt='' src='https://secure.gravatar.com/avatar/a8e3377f8f1b2be087494c3d17c1ec7a?s=80&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/a8e3377f8f1b2be087494c3d17c1ec7a?s=160&#038;d=blank&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' loading='lazy'/>		<cite class="fn"><a href="http://mandres.com.py" rel="external nofollow ugc noopener noreferrer" class="url" data-wpel-link="external">Mandres</a></cite> <span class="says">says:</span>		<a rel="nofollow" class="comment-reply-link" href="https://wolfpaulus.com/tomcat/?replytocom=205738#respond" data-commentid="205738" data-postid="9175" data-belowelement="div-comment-205738" data-respondelement="respond" data-replyto="Reply to Mandres" aria-label="Reply to Mandres" data-wpel-link="internal">Reply</a>		<div class="comment-meta commentmetadata"><a href="https://wolfpaulus.com/tomcat/#comment-205738" data-wpel-link="internal">
+			September 21, 2021 at 12:44 pm</a>		</div>
+	</div>
+
+	
+	<p>Excellent!</p>
+
+			</div>
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/tomcat/#respond" style="display:none;" data-wpel-link="internal">Cancel reply</a></small></h3><form action="https://wolfpaulus.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment"></textarea><div class="row"><div class="col-sm-4"><input id="author" name="author" type="text" value="" size="30" aria-required='true' placeholder="Name" /></div>
+<div class="col-sm-4"><input id="email" name="email" type="text" value="" size="30" aria-required='true' placeholder="Email" /></div>
+<div class="col-sm-4"><input id="url" name="url" type="text" value="" size="30" placeholder="Website" /></div></div>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Reply" /> <input type='hidden' name='comment_post_ID' value='9175' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="8068a68c21" /></p><input type="hidden" id="ak_js" name="ak_js" value="201"/><textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100" style="display: none !important;"></textarea></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://wolfpaulus.com/java-on-macos-big-sur/" rel="prev" data-wpel-link="internal"><i class="fa fa-chevron-left"></i> Installing Java on macOS 11 Big Sur</a></div>			</div><!-- .nav-links -->
+			</nav><!-- .navigation -->
+			
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+</div>
+
+						</div><!-- close .*-inner (main-content or sidebar, depending if sidebar is used) -->
+			</div><!-- close .row -->
+		</div><!-- close .container -->
+	</div><!-- close .site-content -->
+
+	<div id="footer-area">
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			<div class="site-info container">
+				<div class="row">
+					<nav id="social" class="social-icons"><ul id="menu-social-items" class="social-menu"><li id="menu-item-8518" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-8518"><a href="https://wolfpaulus.com/" data-wpel-link="internal"><i class="social_icon fa"><span>Home</span></i></a></li>
+<li id="menu-item-8596" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8596"><a href="tel:928-278-0719" data-wpel-link="internal"><i class="social_icon fa"><span>call</span></i></a></li>
+<li id="menu-item-8513" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8513"><a title="email" href="mailto:wolf@paulus.com"><i class="social_icon fa"><span>email</span></i></a></li>
+<li id="menu-item-8517" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8517"><a href="https://www.linkedin.com/in/wolfpaulus" data-wpel-link="external" rel="external noopener noreferrer"><i class="social_icon fa"><span>LinkedIn</span></i></a></li>
+<li id="menu-item-8792" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8792"><a href="https://github.com/wolfpaulus" data-wpel-link="external" rel="external noopener noreferrer"><i class="social_icon fa"><span>GitHub</span></i></a></li>
+<li id="menu-item-8791" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8791"><a href="https://medium.com/@wolfpaulus" data-wpel-link="external" rel="external noopener noreferrer"><i class="social_icon fa"><span>Medium</span></i></a></li>
+</ul></nav>					<div class="copyright col-md-12">
+												<a href="/about/" data-wpel-link="internal">&copy;2021 &bull; Wolf Paulus</a> 	
+					</div>
+				</div>
+			</div><!-- .site-info -->
+			<button class="scroll-to-top"><i class="fa fa-angle-up"></i></button><!-- .scroll-to-top -->
+		</footer><!-- #colophon -->
+	</div>
+</div><!-- #page -->
+
+		<script type="text/javascript">
+			jQuery( document ).ready( function( $ ){
+				if ( $( window ).width() >= 767 ){
+					$( '.navbar-nav > li.menu-item > a' ).click( function(){
+						if( $( this ).attr('target') !== '_blank' ){
+							window.location = $( this ).attr( 'href' );
+						}else{
+							var win = window.open($( this ).attr( 'href' ), '_blank');
+							win.focus();
+						}
+					});
+				}
+			});
+		</script>
+	<button id="responsive-menu-button"  tabindex="1"
+        class="responsive-menu-button responsive-menu-boring responsive-menu-accessible"
+        type="button"
+        aria-label="Menu">
+    <span class="responsive-menu-box"><span class="responsive-menu-inner"></span>
+    </span></button><div id="responsive-menu-container" class="slide-left">
+    <div id="responsive-menu-wrapper" role="navigation" aria-label="main-menu"><ul id="responsive-menu" role="menubar" aria-label="main-menu" ><li id="responsive-menu-item-8569" class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-home responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-home fa-lg fa-fw"></i> Home</a></li><li id="responsive-menu-item-45" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/about/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-user fa-lg fa-fw"></i> About</a></li><li id="responsive-menu-item-8281" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/software/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-cloud  fa-lg fa-fw"></i> Software</a></li><li id="responsive-menu-item-8283" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/systems/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-server fa-lg fa-fw"></i> Systems</a></li><li id="responsive-menu-item-7632" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/talks/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-microphone fa-lg fa-fw"></i> Talks</a></li><li id="responsive-menu-item-48" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/videos/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-video-camera fa-lg fa-fw" ></I> Videos</a></li><li id="responsive-menu-item-6944" class=" menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-has-children responsive-menu-item responsive-menu-item-has-children"  role="none"><a href="https://wolfpaulus.com/journal/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-rss fa-lg  fa-fw"></i> Blog<div class="responsive-menu-subarrow">▼</div></a><ul aria-label='&lt;i class=&quot;fa fa-rss fa-lg  fa-fw&quot;&gt;&lt;/i&gt; Blog' role='menu' class='responsive-menu-submenu responsive-menu-submenu-depth-1'><li id="responsive-menu-item-7880" class=" menu-item menu-item-type-custom menu-item-object-custom responsive-menu-item"  role="none"><a href="/journal/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">All Posts</a></li><li id="responsive-menu-item-6956" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/android/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Android</a></li><li id="responsive-menu-item-6941" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/embedded/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Embedded</a></li><li id="responsive-menu-item-7564" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/hardware/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Hardware</a></li><li id="responsive-menu-item-6957" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/java/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Java</a></li><li id="responsive-menu-item-7563" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/life/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Life</a></li><li id="responsive-menu-item-6942" class=" menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent responsive-menu-item responsive-menu-item-current-parent"  role="none"><a href="https://wolfpaulus.com/category/mac/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Mac</a></li><li id="responsive-menu-item-7562" class=" menu-item menu-item-type-taxonomy menu-item-object-category responsive-menu-item"  role="none"><a href="https://wolfpaulus.com/category/technology/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal">Technology</a></li></ul></li><li id="responsive-menu-item-8591" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-item"  role="none"><a rel="httpswolfpauluscomwolfpaulus" href="https://wolfpaulus.com/resume/" class="responsive-menu-item-link" tabindex="1" role="menuitem" data-wpel-link="internal"><i class="fa fa-file-text-o fa-lg fa-fw"></i> Resume</a></li></ul><div id="responsive-menu-search-box">
+    <form action="https://wolfpaulus.com" class="responsive-menu-search-form" role="search">
+        <input type="search" name="s" title="Search" tabindex="1"
+               placeholder="Search"
+               class="responsive-menu-search-box">
+    </form>
+</div>    </div>
+</div>
+<link rel='stylesheet' id='su-shortcodes-css'  href='https://wolfpaulus.com/wp-content/plugins/shortcodes-ultimate/includes/css/shortcodes.css?ver=5.10.2' type='text/css' media='all' />
+<script type='text/javascript' id='pt-cv-content-views-script-js-extra'>
+/* <![CDATA[ */
+var PT_CV_PUBLIC = {"_prefix":"pt-cv-","page_to_show":"5","_nonce":"3f73c15cf2","is_admin":"","is_mobile":"","ajaxurl":"https:\/\/wolfpaulus.com\/wp-admin\/admin-ajax.php","lang":"","loading_image_src":"data:image\/gif;base64,R0lGODlhDwAPALMPAMrKygwMDJOTkz09PZWVla+vr3p6euTk5M7OzuXl5TMzMwAAAJmZmWZmZszMzP\/\/\/yH\/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAPACwAAAAADwAPAAAEQvDJaZaZOIcV8iQK8VRX4iTYoAwZ4iCYoAjZ4RxejhVNoT+mRGP4cyF4Pp0N98sBGIBMEMOotl6YZ3S61Bmbkm4mAgAh+QQFCgAPACwAAAAADQANAAAENPDJSRSZeA418itN8QiK8BiLITVsFiyBBIoYqnoewAD4xPw9iY4XLGYSjkQR4UAUD45DLwIAIfkEBQoADwAsAAAAAA8ACQAABC\/wyVlamTi3nSdgwFNdhEJgTJoNyoB9ISYoQmdjiZPcj7EYCAeCF1gEDo4Dz2eIAAAh+QQFCgAPACwCAAAADQANAAAEM\/DJBxiYeLKdX3IJZT1FU0iIg2RNKx3OkZVnZ98ToRD4MyiDnkAh6BkNC0MvsAj0kMpHBAAh+QQFCgAPACwGAAAACQAPAAAEMDC59KpFDll73HkAA2wVY5KgiK5b0RRoI6MuzG6EQqCDMlSGheEhUAgqgUUAFRySIgAh+QQFCgAPACwCAAIADQANAAAEM\/DJKZNLND\/kkKaHc3xk+QAMYDKsiaqmZCxGVjSFFCxB1vwy2oOgIDxuucxAMTAJFAJNBAAh+QQFCgAPACwAAAYADwAJAAAEMNAs86q1yaWwwv2Ig0jUZx3OYa4XoRAfwADXoAwfo1+CIjyFRuEho60aSNYlOPxEAAAh+QQFCgAPACwAAAIADQANAAAENPA9s4y8+IUVcqaWJ4qEQozSoAzoIyhCK2NFU2SJk0hNnyEOhKR2AzAAj4Pj4GE4W0bkJQIAOw=="};
+var PT_CV_PAGINATION = {"first":"\u00ab","prev":"\u2039","next":"\u203a","last":"\u00bb","goto_first":"Go to first page","goto_prev":"Go to previous page","goto_next":"Go to next page","goto_last":"Go to last page","current_page":"Current page is","goto_page":"Go to page"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/plugins/content-views-query-and-display-post-page/public/assets/js/cv.js?ver=2.4.0.2' id='pt-cv-content-views-script-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/themes/activello/assets/js/skip-link-focus-fix.js?ver=20140222' id='activello-skip-link-focus-fix-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-includes/js/comment-reply.min.js?ver=5.8.2' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=YUAN4RVSQ1TC2SO' id='enlighterjs-js'></script>
+<script type='text/javascript' src='https://wolfpaulus.com/wp-includes/js/wp-embed.min.js?ver=5.8.2' id='wp-embed-js'></script>
+<script defer type='text/javascript' src='https://wolfpaulus.com/wp-content/plugins/akismet/_inc/form.js?ver=4.1.12' id='akismet-form-js'></script>
+
+</body>
+</html>
