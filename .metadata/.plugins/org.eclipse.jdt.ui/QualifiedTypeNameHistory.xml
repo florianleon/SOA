@@ -5,4 +5,26 @@
     <fullyQualifiedTypeName name="javax.jws.WebParam"/>
     <fullyQualifiedTypeName name="javax.xml.ws.Endpoint"/>
     <fullyQualifiedTypeName name="java.net.MalformedURLException"/>
+    <fullyQualifiedTypeName name="java.net.URI"/>
+    <fullyQualifiedTypeName name="java.net.URL"/>
+    <fullyQualifiedTypeName name="fr.insa.soap.wsdltojava.Analyser"/>
+    <fullyQualifiedTypeName name="fr.insa.soap.wsdltojava.AnalyserChaineWS"/>
+    <fullyQualifiedTypeName name="fr.insa.soap.wsdltojava.NumberConversion"/>
+    <fullyQualifiedTypeName name="fr.insa.soap.wsdltojava.NumberConversionSoapType"/>
+    <fullyQualifiedTypeName name="java.math.BigInteger"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.PathParam"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.QueryParam"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.PUT"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.client.ClientBuilder"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.client.Client"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.core.Response"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.core.MediaType"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.GET"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.Produces"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.POST"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.Consumes"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.core.Context"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.core.UriInfo"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.Path"/>
 </qualifiedTypeNameHistroy>
