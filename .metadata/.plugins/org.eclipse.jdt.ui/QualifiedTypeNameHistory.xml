@@ -27,4 +27,8 @@
     <fullyQualifiedTypeName name="jakarta.ws.rs.core.Context"/>
     <fullyQualifiedTypeName name="jakarta.ws.rs.core.UriInfo"/>
     <fullyQualifiedTypeName name="jakarta.ws.rs.Path"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="fr.insa.florianleon.mas.studentManagementMS.model.Student"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
 </qualifiedTypeNameHistroy>
