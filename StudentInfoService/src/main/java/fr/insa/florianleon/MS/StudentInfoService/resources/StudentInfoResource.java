@@ -25,6 +25,7 @@ public class StudentInfoResource {
 				new StudentsInfos(3, "Yala", "Nelia", "12/06/1994")
 				
 		);
+		System.out.println("StudentInfoResource Called!");
 		//Get the student that corresponds to the id
 		return etudInfos.get(id);
 	}
