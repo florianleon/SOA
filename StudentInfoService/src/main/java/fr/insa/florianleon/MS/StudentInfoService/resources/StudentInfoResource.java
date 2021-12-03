@@ -3,6 +3,7 @@ package fr.insa.florianleon.MS.StudentInfoService.resources;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,51 @@ import fr.insa.florianleon.MS.StudentInfoService.model.StudentsInfos;
 @RequestMapping("/student")
 public class StudentInfoResource {
 	
+	@Value("${server.port}")
+	private String serverPort;
+	
+	@Value("${db.name}")
+	private String dbName;
+	
+	@Value("${db.login}")
+	private String dbLogin;
+	
+	@Value("${db.pwd}")
+	private String dbPwd;
+	
+	@Value("${db.uri}")
+	private String dbUri;
+	
+	
+	public String getServerPort() {
+		return serverPort;
+	}
+
+
+
+	public String getDbName() {
+		return dbName;
+	}
+
+
+
+	public String getDbLogin() {
+		return dbLogin;
+	}
+
+
+
+	public String getDbPwd() {
+		return dbPwd;
+	}
+
+
+
+	public String getDbUri() {
+		return dbUri;
+	}
+
+
 	@GetMapping("{idStudent}")
 	public StudentsInfos getIDStudent(@PathVariable("idStudent") int id) {
 		
@@ -26,6 +72,7 @@ public class StudentInfoResource {
 				
 		);
 		System.out.println("StudentInfoResource Called!");
+		System.out.println("Connection to " + this.getDbName() + " à l'URI : " + this.getDbUri());
 		//Get the student that corresponds to the id
 		return etudInfos.get(id);
 	}
